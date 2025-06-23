@@ -1,9 +1,10 @@
+// app/components/shared/Sidebar.js
 'use client';
 
 import React, { useState } from 'react';
 import { signOut } from "firebase/auth";
 import { auth } from '../../lib/firebase';
-import { ShieldCheck, Users, Car, FileText, ClipboardList, User, ChevronDown, ChevronRight, BarChart2, LogOut, UserCog, PlusCircle } from 'lucide-react';
+import { ShieldCheck, Users, Car, FileText, ClipboardList, User, ChevronDown, ChevronRight, BarChart2, LogOut, UserCog, PlusCircle, Bell } from 'lucide-react';
 
 export default function Sidebar({ activePage, setActivePage, userProfile, onAdminClick, onCreationClick }) {
     const [isStaffOpen, setIsStaffOpen] = useState(false);
@@ -27,7 +28,17 @@ export default function Sidebar({ activePage, setActivePage, userProfile, onAdmi
     return (
         <nav className="bg-gray-800 w-64 p-4 flex flex-col flex-shrink-0">
             <div>
-                <div className="flex items-center mb-6"><ShieldCheck className="text-blue-500" size={32} /><h1 className="text-xl font-bold ml-2">CID Portal</h1></div>
+                <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center">
+                        <ShieldCheck className="text-blue-500" size={32} />
+                        <h1 className="text-xl font-bold ml-2">CID Portal</h1>
+                    </div>
+                    <button className="relative text-gray-400 hover:text-white">
+                        <Bell size={20} />
+                        {/* Notification dot */}
+                        {/* <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-gray-800"></span> */}
+                    </button>
+                </div>
                 <div className="mb-4 relative">
                     <button onClick={() => setIsNewOpen(!isNewOpen)} className="w-full flex items-center justify-center gap-2 p-2.5 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors">
                         <PlusCircle size={20} /> New...

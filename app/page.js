@@ -1,3 +1,4 @@
+// app/page.js
 'use client'; // This is a Client Component
 
 import React, { useState } from 'react';
@@ -61,7 +62,7 @@ export default function Home() {
                 setActivePage(newActivePage);
             };
             switch (activeDetailPage.type) {
-                case 'case': return <CaseDetailPage item={activeDetailPage.item} onBack={onBack} navigateToDetail={navigateToDetail} />;
+                case 'case': return <CaseDetailPage item={activeDetailPage.item} onBack={onBack} navigateToDetail={navigateToDetail} userProfile={userProfile} />;
                 case 'task': return <TaskDetailPage item={activeDetailPage.item} onBack={onBack} />;
                 case 'person': return <PersonDetailPage item={activeDetailPage.item} onBack={onBack} />;
                 case 'vehicle': return <VehicleDetailPage item={activeDetailPage.item} onBack={onBack} />;
