@@ -1,10 +1,10 @@
 // app/components/shared/Sidebar.js
 'use client';
-
 import React, { useState } from 'react';
 import { signOut } from "firebase/auth";
 import { auth } from '../../lib/firebase';
 import { ShieldCheck, Users, Car, FileText, ClipboardList, User, ChevronDown, ChevronRight, BarChart2, LogOut, UserCog, PlusCircle, Bell } from 'lucide-react';
+import { PERMISSIONS } from '../../lib/permissions';
 
 export default function Sidebar({ activePage, setActivePage, userProfile, onAdminClick, onCreationClick }) {
     const [isStaffOpen, setIsStaffOpen] = useState(false);
@@ -25,6 +25,10 @@ export default function Sidebar({ activePage, setActivePage, userProfile, onAdmi
         { name: 'Vehicle', type: 'vehicle', icon: <Car size={18}/> },
     ];
 
+    const hasPermission = (permission) => {
+        return userProfile?.role?.permissions?.includes(permission);
+    };
+
     return (
         <nav className="bg-gray-800 w-64 p-4 flex flex-col flex-shrink-0">
             <div>
@@ -35,8 +39,6 @@ export default function Sidebar({ activePage, setActivePage, userProfile, onAdmi
                     </div>
                     <button className="relative text-gray-400 hover:text-white">
                         <Bell size={20} />
-                        {/* Notification dot */}
-                        {/* <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-gray-800"></span> */}
                     </button>
                 </div>
                 <div className="mb-4 relative">
@@ -74,7 +76,7 @@ export default function Sidebar({ activePage, setActivePage, userProfile, onAdmi
                     <p className="text-xs text-gray-400">{userProfile.rank}</p>
                     <p className="text-xs text-green-400">Online</p>
                 </div>
-                {userProfile.permissionLevel === 10 && (
+                {hasPermission(PERMISSIONS.ADMIN_PANEL_ACCESS) && (
                     <a href="#" onClick={onAdminClick} className="flex items-center p-2 rounded-lg text-amber-400 hover:bg-gray-700 mb-2"><UserCog size={20} /><span className="ml-3">Admin Panel</span></a>
                 )}
                 <a href="#" onClick={handleLogout} className="flex items-center p-2 rounded-lg text-red-400 hover:bg-gray-700"><LogOut size={20} /><span className="ml-3">Logout</span></a>
